@@ -1,0 +1,27 @@
+language:
+- node_js
+node_js:
+- '6'
+env:
+  global:
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+    - GH_REF: github.com/devvykid/jingwan-codingcamp.git
+    - GH_REPO: 'https://github.com/devvykid/jingwan-codingcamp.git'
+cache:
+  yarn: true
+  directories:
+  - node_modules
+  - $HOME/.npm
+branches:
+  only:
+    - master
+before_script:
+  - git config --global user.name 'JY Park'
+  - git config --global user.email 'me@devvyk.id'
+  - chmod +x ./cideploy
+install:
+- yarn
+script:
+  - npm run build
+after_success:
+  - ./cideploy

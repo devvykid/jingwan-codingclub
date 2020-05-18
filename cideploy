@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e # 에러 발생 시 스크립트 중단
+
+DATEFMT=`date +%Y-%m-%d:%H:%M:%S`
+
+rm -rf .deploy
+mkdir .deploy
+cd .deploy
+git clone -b gh-pages "${GH_REPO}" .
+rm -rf ./*
+cp -r ../public/* .
+git add -A .
+git commit -m "Update $DATEFMT"
+git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master
